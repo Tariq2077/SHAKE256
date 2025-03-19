@@ -1,0 +1,106 @@
+# Reading pref.tcl
+# do SHAKE256_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying D:/Quartus_Digital/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+D:/Documents/SHAKE256/src {D:/Documents/SHAKE256/src/Truncate.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 06:22:57 on Mar 19,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+D:/Documents/SHAKE256/src" D:/Documents/SHAKE256/src/Truncate.v 
+# -- Compiling module Truncate
+# 
+# Top level modules:
+# 	Truncate
+# End time: 06:22:57 on Mar 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+D:/Documents/SHAKE256/src {D:/Documents/SHAKE256/src/squeeze_mod.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 06:22:57 on Mar 19,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+D:/Documents/SHAKE256/src" D:/Documents/SHAKE256/src/squeeze_mod.v 
+# -- Compiling module Squeeze_mod
+# 
+# Top level modules:
+# 	Squeeze_mod
+# End time: 06:22:57 on Mar 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+D:/Documents/SHAKE256/src {D:/Documents/SHAKE256/src/SHAKE256.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 06:22:57 on Mar 19,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+D:/Documents/SHAKE256/src" D:/Documents/SHAKE256/src/SHAKE256.v 
+# -- Compiling module SHAKE256
+# 
+# Top level modules:
+# 	SHAKE256
+# End time: 06:22:57 on Mar 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+D:/Documents/SHAKE256/src {D:/Documents/SHAKE256/src/Pad.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 06:22:57 on Mar 19,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+D:/Documents/SHAKE256/src" D:/Documents/SHAKE256/src/Pad.v 
+# -- Compiling module pad
+# 
+# Top level modules:
+# 	pad
+# End time: 06:22:57 on Mar 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+D:/Documents/SHAKE256/src {D:/Documents/SHAKE256/src/KeccakF1600.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 06:22:58 on Mar 19,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+D:/Documents/SHAKE256/src" D:/Documents/SHAKE256/src/KeccakF1600.v 
+# -- Compiling module KeccakF1600
+# 
+# Top level modules:
+# 	KeccakF1600
+# End time: 06:22:58 on Mar 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+D:/Documents/SHAKE256/src {D:/Documents/SHAKE256/src/Convert_Digest.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 06:22:58 on Mar 19,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+D:/Documents/SHAKE256/src" D:/Documents/SHAKE256/src/Convert_Digest.v 
+# -- Compiling module Convert_Digest
+# 
+# Top level modules:
+# 	Convert_Digest
+# End time: 06:22:58 on Mar 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+D:/Documents/SHAKE256/src {D:/Documents/SHAKE256/src/Control_Unit.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 06:22:58 on Mar 19,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+D:/Documents/SHAKE256/src" D:/Documents/SHAKE256/src/Control_Unit.v 
+# -- Compiling module Control_Unit
+# 
+# Top level modules:
+# 	Control_Unit
+# End time: 06:22:58 on Mar 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+D:/Documents/SHAKE256/src {D:/Documents/SHAKE256/src/Absorb.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 06:22:58 on Mar 19,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+D:/Documents/SHAKE256/src" D:/Documents/SHAKE256/src/Absorb.v 
+# -- Compiling module Absorb
+# 
+# Top level modules:
+# 	Absorb
+# End time: 06:22:58 on Mar 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -vlog01compat -work work +incdir+D:/Documents/SHAKE256/.gitignore/test {D:/Documents/SHAKE256/.gitignore/test/tb_Shake256.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 06:22:58 on Mar 19,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+D:/Documents/SHAKE256/.gitignore/test" D:/Documents/SHAKE256/.gitignore/test/tb_Shake256.v 
+# ** Error: (vlog-7) Failed to open design unit file "D:/Documents/SHAKE256/.gitignore/test/tb_Shake256.v" in read mode.
+# No such file or directory. (errno = ENOENT)
+# End time: 06:22:58 on Mar 19,2025, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
+# ** Error: D:/Quartus_Digital/modelsim_ase/win32aloem/vlog failed.
+# Error in macro ./SHAKE256_run_msim_rtl_verilog.do line 17
+# D:/Quartus_Digital/modelsim_ase/win32aloem/vlog failed.
+#     while executing
+# "vlog -vlog01compat -work work +incdir+D:/Documents/SHAKE256/.gitignore/test {D:/Documents/SHAKE256/.gitignore/test/tb_Shake256.v}"
