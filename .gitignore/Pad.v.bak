@@ -1,0 +1,77 @@
+module pad #(parameter range = 16)(
+    input wire clk,
+    input wire reset,
+    input wire enable,
+    input wire serial_in,
+    input wire serial_end_signal,
+    output reg [range-1:0] message,
+    output reg valid_output,
+    output reg error_flag
+);
+
+    reg [10:0] bit_counter;
+    reg [1:0] state;
+
+    localparam STATE_INPUT        = 2'b00;
+    localparam STATE_PADDING_ONE  = 2'b01;
+    localparam STATE_PADDING_ZERO = 2'b10;
+    localparam STATE_DONE         = 2'b11;
+
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            message      <= 0;
+            message[range-1]<= 1'b1; // Set the last bit to '1' statically
+            valid_output <= 0;
+            error_flag   <= 0;
+            bit_counter  <= 0;
+            state        <= STATE_INPUT;
+        end else begin
+            case (state)
+                STATE_INPUT: begin
+                    if (serial_end_signal) begin
+                        if (bit_counter <= range-2) begin
+                            state <= STATE_PADDING_ONE;
+                        end else begin
+                            error_flag <= 1; // Not enough space for padding
+                            state      <= STATE_DONE;
+                        end
+                    end else if (enable) begin
+                        if (bit_counter < range-1) begin
+                            // Store serial_in in message[bit_counter]
+                            message[bit_counter] <= serial_in;
+                            bit_counter <= bit_counter + 1;
+                        end else begin
+                            error_flag <= 1; // Input too long
+                            state      <= STATE_DONE;
+                        end
+                    end
+                end
+
+                STATE_PADDING_ONE: begin
+                    // Assign the '1' padding bit
+                    message[bit_counter] <= 1'b1;
+                    bit_counter <= bit_counter + 1;
+                    state <= STATE_PADDING_ZERO;
+                end
+
+                STATE_PADDING_ZERO: begin
+                    if (bit_counter < range-1) begin
+                        // Assign '0's to the remaining bits
+                        message[bit_counter] <= 1'b0;
+                        bit_counter <= bit_counter + 1;
+                    end else begin
+                        // Last bit is already set to '1'; proceed to DONE
+                        state <= STATE_DONE;
+                    end
+                end
+
+                STATE_DONE: begin
+                    valid_output <= 1; // Program is done
+                    // Optionally reset when needed later
+                end
+
+                default: state <= STATE_DONE;
+            endcase
+        end
+    end
+endmodule

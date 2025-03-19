@@ -1,0 +1,19 @@
+module DP_squeeze(
+    input clk,                // Clock signal
+    input start,              // Start signal to initiate the squeeze operation
+    input [1599:0] Unsqueezed_data, // 1600-bit input state
+    output reg [1087:0] Squeezed_data, // 1088-bit output register
+    output reg squeeze_done   // Done signal indicating completion
+);
+
+    always @(posedge clk) begin
+        if (start) begin
+            // Start the squeeze operation
+            Squeezed_data <= Unsqueezed_data[1599:512]; // Load first 1088 bits from Unsqueezed_data
+            squeeze_done <= 1;           // Set done signal high after loading
+        end else begin
+            squeeze_done <= 0;           // Reset done signal when start is low
+        end
+    end
+
+endmodule

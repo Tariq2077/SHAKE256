@@ -1,0 +1,104 @@
+`timescale 1ns/1ps
+
+module tb_cShake256;
+    // Inputs to cShake256
+    reg         clk;
+    reg         reset;
+    reg         start;
+    reg         enable;
+    reg         serial_in;
+    reg         serial_end_signal;
+
+    // Outputs from cShake256
+    wire        done;
+    wire [255:0] digest; // 256-bit final output
+
+    // Instantiate your cShake256 module
+    // Adjust parameters if your module is differently named or has different ports
+    cShake256 #(
+        .MESSAGE_MAX_BITS(8192), 
+        .STATE_WIDTH(1600), 
+        .RATE_WIDTH(1088),
+        .CAPACITY_WIDTH(512),
+        .OUT_BITS(256)
+    ) DUT (
+        .clk       (clk),
+        .reset     (reset),
+        .enable    (enable),
+        .serial_in (serial_in),
+        .serial_end_signal (serial_end_signal),
+        .start     (start),
+        .done      (done),
+        .digest    (digest)
+    );
+
+    // Clock generation: 10ns period
+    initial begin
+        clk = 1'b0;
+        forever #5 clk = ~clk;
+    end
+
+    // Reference 256-bit digest from NIST SP 800-185 Example 2 (512-bit result truncated to 256):
+    // This is the known correct cSHAKE256 digest for input X=00010203, N="", S="", L=256
+    // Hex (grouped 8 bytes per line):
+    // f4 20 2e 3c 58 52 f9 18
+    // 2a 43 a2 cd fb d2 5f 0f
+    // bf c7 9d 95 43 53 9d 76
+    // 91 3f 94 5b 43 97 a7 21
+    // We'll define it as a 256-bit reg for easy compare
+    reg [255:0] expected_digest = 256'hf4202e3c5852f9182a43a2cdfbd25f0fbfc79d9543539d76913f945b4397a721;
+
+    // We'll store the 4-byte input: 0x00010203 
+    // For clarity, let's define it as a small array of bits
+    reg [31:0] input_msg = 32'h00010203; 
+
+    integer i;
+
+    initial begin
+        // Initialize signals
+        reset            = 1'b1;
+        start            = 1'b0;
+        enable           = 1'b0;
+        serial_in        = 1'b0;
+        serial_end_signal= 1'b0;
+
+        // Deassert reset after some cycles
+        #20;
+        reset = 1'b0;
+
+        // 1) Start cShake256
+        start = 1'b1;
+        #10;
+        start = 1'b0;
+
+        // 2) Feed 32 bits (0x00010203) serially from LSB to MSB or vice versa. 
+        //    We'll pick LSB-first for example:
+        for (i=0; i<32; i=i+1) begin
+            enable    = 1'b1;
+            serial_in = input_msg[i];   // LSB first
+            #10;                        // 1 cycle per bit
+        end
+        // Done feeding bits
+        enable = 1'b0;
+        // 3) Indicate end of message 
+        serial_end_signal = 1'b1;
+        #10;
+        serial_end_signal = 1'b0;
+
+        // 4) Wait for 'done' from cShake256
+        wait(done == 1);
+        #20;
+
+        // Compare digest with expected
+        if (digest === expected_digest) begin
+            $display("TEST PASSED: digest matches the reference!");
+        end else begin
+            $display("TEST FAILED:");
+            $display("   Expected: %h", expected_digest);
+            $display("   Got     : %h", digest);
+        end
+
+        #20 $stop;
+    end
+
+endmodule

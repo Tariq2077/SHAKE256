@@ -1,0 +1,1567 @@
+Analysis & Synthesis report for SHAKE256
+Wed Mar 19 06:22:32 2025
+Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. State Machine - |SHAKE256|Convert_Digest:conv_inst|state
+  9. State Machine - |SHAKE256|Absorb:absorb_inst|state
+ 10. State Machine - |SHAKE256|pad:pad_inst|state
+ 11. State Machine - |SHAKE256|Control_Unit:cu|state
+ 12. Registers Removed During Synthesis
+ 13. Removed Registers Triggering Further Register Optimizations
+ 14. General Register Statistics
+ 15. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 16. Parameter Settings for User Entity Instance: Top-level Entity: |SHAKE256
+ 17. Parameter Settings for User Entity Instance: Control_Unit:cu
+ 18. Parameter Settings for User Entity Instance: pad:pad_inst
+ 19. Parameter Settings for User Entity Instance: Squeeze_mod:squeeze_inst
+ 20. Parameter Settings for User Entity Instance: Convert_Digest:conv_inst
+ 21. Parameter Settings for User Entity Instance: Truncate:truncate_inst
+ 22. Port Connectivity Checks: "Absorb:absorb_inst|KeccakF1600:keccak_inst"
+ 23. Port Connectivity Checks: "Absorb:absorb_inst"
+ 24. Port Connectivity Checks: "pad:pad_inst"
+ 25. Port Connectivity Checks: "Control_Unit:cu"
+ 26. Post-Synthesis Netlist Statistics for Top Partition
+ 27. Elapsed Time Per Partition
+ 28. Analysis & Synthesis Messages
+ 29. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2020  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++------------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Wed Mar 19 06:22:31 2025       ;
+; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
+; Revision Name                      ; SHAKE256                                    ;
+; Top-level Entity Name              ; SHAKE256                                    ;
+; Family                             ; MAX 10                                      ;
+; Total logic elements               ; 17,941                                      ;
+;     Total combinational functions  ; 10,897                                      ;
+;     Dedicated logic registers      ; 14,909                                      ;
+; Total registers                    ; 14909                                       ;
+; Total pins                         ; 6,758                                       ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 0                                           ;
+; Embedded Multiplier 9-bit elements ; 0                                           ;
+; Total PLLs                         ; 0                                           ;
+; UFM blocks                         ; 0                                           ;
+; ADC blocks                         ; 0                                           ;
++------------------------------------+---------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                              ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                           ; Setting            ; Default Value      ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                           ; 10M08DAF484C8G     ;                    ;
+; Top-level entity name                                            ; SHAKE256           ; SHAKE256           ;
+; Family name                                                      ; MAX 10             ; Cyclone V          ;
+; Use smart compilation                                            ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                      ; Off                ; Off                ;
+; Restructure Multiplexers                                         ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                              ; Off                ; Off                ;
+; Preserve fewer node names                                        ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                    ; Enable             ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                     ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                         ; Auto               ; Auto               ;
+; Safe State Machine                                               ; Off                ; Off                ;
+; Extract Verilog State Machines                                   ; On                 ; On                 ;
+; Extract VHDL State Machines                                      ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                       ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                   ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                          ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                        ; On                 ; On                 ;
+; Parallel Synthesis                                               ; On                 ; On                 ;
+; DSP Block Balancing                                              ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                               ; On                 ; On                 ;
+; Power-Up Don't Care                                              ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                     ; Off                ; Off                ;
+; Remove Duplicate Registers                                       ; On                 ; On                 ;
+; Ignore CARRY Buffers                                             ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                           ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                            ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                        ; Off                ; Off                ;
+; Ignore LCELL Buffers                                             ; Off                ; Off                ;
+; Ignore SOFT Buffers                                              ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                   ; Off                ; Off                ;
+; Optimization Technique                                           ; Balanced           ; Balanced           ;
+; Carry Chain Length                                               ; 70                 ; 70                 ;
+; Auto Carry Chains                                                ; On                 ; On                 ;
+; Auto Open-Drain Pins                                             ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                            ; Off                ; Off                ;
+; Auto ROM Replacement                                             ; On                 ; On                 ;
+; Auto RAM Replacement                                             ; On                 ; On                 ;
+; Auto DSP Block Replacement                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                  ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                  ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                    ; On                 ; On                 ;
+; Strict RAM Replacement                                           ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                           ; Off                ; Off                ;
+; Auto RAM Block Balancing                                         ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                ; Off                ; Off                ;
+; Auto Resource Sharing                                            ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                    ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing              ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                ; Off                ; Off                ;
+; Timing-Driven Synthesis                                          ; On                 ; On                 ;
+; Report Parameter Settings                                        ; On                 ; On                 ;
+; Report Source Assignments                                        ; On                 ; On                 ;
+; Report Connectivity Checks                                       ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                               ; Off                ; Off                ;
+; Synchronization Register Chain Length                            ; 2                  ; 2                  ;
+; Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                  ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report         ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report               ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report        ; 100                ; 100                ;
+; Clock MUX Protection                                             ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                      ; Off                ; Off                ;
+; Block Design Naming                                              ; Auto               ; Auto               ;
+; SDC constraint protection                                        ; Off                ; Off                ;
+; Synthesis Effort                                                 ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal     ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                             ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                               ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                      ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                           ; On                 ; On                 ;
++------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.01        ;
+; Maximum used               ; 4           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.3%      ;
+;     Processor 3            ;   0.3%      ;
+;     Processor 4            ;   0.2%      ;
++----------------------------+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                             ;
++----------------------------------+-----------------+------------------------+--------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path               ; Library ;
++----------------------------------+-----------------+------------------------+--------------------------------------------+---------+
+; ../src/Truncate.v                ; yes             ; User Verilog HDL File  ; D:/Documents/SHAKE256/src/Truncate.v       ;         ;
+; ../src/squeeze_mod.v             ; yes             ; User Verilog HDL File  ; D:/Documents/SHAKE256/src/squeeze_mod.v    ;         ;
+; ../src/SHAKE256.v                ; yes             ; User Verilog HDL File  ; D:/Documents/SHAKE256/src/SHAKE256.v       ;         ;
+; ../src/Pad.v                     ; yes             ; User Verilog HDL File  ; D:/Documents/SHAKE256/src/Pad.v            ;         ;
+; ../src/KeccakF1600.v             ; yes             ; User Verilog HDL File  ; D:/Documents/SHAKE256/src/KeccakF1600.v    ;         ;
+; ../src/Convert_Digest.v          ; yes             ; User Verilog HDL File  ; D:/Documents/SHAKE256/src/Convert_Digest.v ;         ;
+; ../src/Control_Unit.v            ; yes             ; User Verilog HDL File  ; D:/Documents/SHAKE256/src/Control_Unit.v   ;         ;
+; ../src/Absorb.v                  ; yes             ; User Verilog HDL File  ; D:/Documents/SHAKE256/src/Absorb.v         ;         ;
++----------------------------------+-----------------+------------------------+--------------------------------------------+---------+
+
+
++---------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary             ;
++---------------------------------------------+-----------+
+; Resource                                    ; Usage     ;
++---------------------------------------------+-----------+
+; Estimated Total logic elements              ; 17,941    ;
+;                                             ;           ;
+; Total combinational functions               ; 10897     ;
+; Logic element usage by number of LUT inputs ;           ;
+;     -- 4 input functions                    ; 6104      ;
+;     -- 3 input functions                    ; 1594      ;
+;     -- <=2 input functions                  ; 3199      ;
+;                                             ;           ;
+; Logic elements by mode                      ;           ;
+;     -- normal mode                          ; 10881     ;
+;     -- arithmetic mode                      ; 16        ;
+;                                             ;           ;
+; Total registers                             ; 14909     ;
+;     -- Dedicated logic registers            ; 14909     ;
+;     -- I/O registers                        ; 0         ;
+;                                             ;           ;
+; I/O pins                                    ; 6758      ;
+;                                             ;           ;
+; Embedded Multiplier 9-bit elements          ; 0         ;
+;                                             ;           ;
+; Maximum fan-out node                        ; clk~input ;
+; Maximum fan-out                             ; 14909     ;
+; Total fan-out                               ; 110706    ;
+; Average fan-out                             ; 2.82      ;
++---------------------------------------------+-----------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                         ;
++---------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------------+----------------+--------------+
+; Compilation Hierarchy Node      ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                  ; Entity Name    ; Library Name ;
++---------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------------+----------------+--------------+
+; |SHAKE256                       ; 10897 (0)           ; 14909 (1088)              ; 0           ; 0          ; 0            ; 0       ; 0         ; 6758 ; 0            ; 0          ; |SHAKE256                                            ; SHAKE256       ; work         ;
+;    |Absorb:absorb_inst|         ; 6249 (2696)         ; 5903 (4295)               ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |SHAKE256|Absorb:absorb_inst                         ; Absorb         ; work         ;
+;       |KeccakF1600:keccak_inst| ; 3553 (3553)         ; 1608 (1608)               ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |SHAKE256|Absorb:absorb_inst|KeccakF1600:keccak_inst ; KeccakF1600    ; work         ;
+;    |Control_Unit:cu|            ; 18 (18)             ; 12 (12)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |SHAKE256|Control_Unit:cu                            ; Control_Unit   ; work         ;
+;    |Convert_Digest:conv_inst|   ; 2 (2)               ; 4358 (4358)               ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |SHAKE256|Convert_Digest:conv_inst                   ; Convert_Digest ; work         ;
+;    |Squeeze_mod:squeeze_inst|   ; 1090 (1090)         ; 1089 (1089)               ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |SHAKE256|Squeeze_mod:squeeze_inst                   ; Squeeze_mod    ; work         ;
+;    |Truncate:truncate_inst|     ; 258 (258)           ; 257 (257)                 ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |SHAKE256|Truncate:truncate_inst                     ; Truncate       ; work         ;
+;    |pad:pad_inst|               ; 3280 (3280)         ; 2202 (2202)               ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |SHAKE256|pad:pad_inst                               ; pad            ; work         ;
++---------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------------+----------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |SHAKE256|Convert_Digest:conv_inst|state                                                                ;
++---------------------+-------------------+---------------------+-------------------+------------------+------------------+
+; Name                ; state.STATE_SWAP2 ; state.STATE_REVERSE ; state.STATE_SWAP1 ; state.STATE_IDLE ; state.STATE_DONE ;
++---------------------+-------------------+---------------------+-------------------+------------------+------------------+
+; state.STATE_IDLE    ; 0                 ; 0                   ; 0                 ; 0                ; 0                ;
+; state.STATE_SWAP1   ; 0                 ; 0                   ; 1                 ; 1                ; 0                ;
+; state.STATE_REVERSE ; 0                 ; 1                   ; 0                 ; 1                ; 0                ;
+; state.STATE_SWAP2   ; 1                 ; 0                   ; 0                 ; 1                ; 0                ;
+; state.STATE_DONE    ; 0                 ; 0                   ; 0                 ; 1                ; 1                ;
++---------------------+-------------------+---------------------+-------------------+------------------+------------------+
+
+
+Encoding Type:  One-Hot
++----------------------------------------------------------------------------------------------------------------+
+; State Machine - |SHAKE256|Absorb:absorb_inst|state                                                             ;
++--------------------------+------------------+--------------------------+--------------------+------------------+
+; Name                     ; state.STATE_DONE ; state.STATE_PERMUTE_WAIT ; state.STATE_ABSORB ; state.STATE_IDLE ;
++--------------------------+------------------+--------------------------+--------------------+------------------+
+; state.STATE_IDLE         ; 0                ; 0                        ; 0                  ; 0                ;
+; state.STATE_ABSORB       ; 0                ; 0                        ; 1                  ; 1                ;
+; state.STATE_PERMUTE_WAIT ; 0                ; 1                        ; 0                  ; 1                ;
+; state.STATE_DONE         ; 1                ; 0                        ; 0                  ; 1                ;
++--------------------------+------------------+--------------------------+--------------------+------------------+
+
+
+Encoding Type:  One-Hot
++---------------------------------------------------------------------------------------------------------+
+; State Machine - |SHAKE256|pad:pad_inst|state                                                            ;
++----------------------+------------------+----------------------+---------------------+------------------+
+; Name                 ; state.STATE_DONE ; state.STATE_FINALIZE ; state.STATE_COLLECT ; state.STATE_IDLE ;
++----------------------+------------------+----------------------+---------------------+------------------+
+; state.STATE_IDLE     ; 0                ; 0                    ; 0                   ; 0                ;
+; state.STATE_COLLECT  ; 0                ; 0                    ; 1                   ; 1                ;
+; state.STATE_FINALIZE ; 0                ; 1                    ; 0                   ; 1                ;
+; state.STATE_DONE     ; 1                ; 0                    ; 0                   ; 1                ;
++----------------------+------------------+----------------------+---------------------+------------------+
+
+
+Encoding Type:  One-Hot
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |SHAKE256|Control_Unit:cu|state                                                                                                                                                                                                                                                                  ;
++------------------------+------------+---------------------+----------------------+--------------------+---------------------+--------------------+---------------------+-----------------------+------------------------+-------------------+--------------------+----------------+-----------------+------------+
+; Name                   ; state.DONE ; state.TRUNCATE_WAIT ; state.TRUNCATE_PULSE ; state.CONVERT_WAIT ; state.CONVERT_PULSE ; state.SQUEEZE_WAIT ; state.SQUEEZE_PULSE ; state.NEXT_BLOCK_WAIT ; state.NEXT_BLOCK_PULSE ; state.ABSORB_WAIT ; state.ABSORB_PULSE ; state.PAD_WAIT ; state.PAD_PULSE ; state.IDLE ;
++------------------------+------------+---------------------+----------------------+--------------------+---------------------+--------------------+---------------------+-----------------------+------------------------+-------------------+--------------------+----------------+-----------------+------------+
+; state.IDLE             ; 0          ; 0                   ; 0                    ; 0                  ; 0                   ; 0                  ; 0                   ; 0                     ; 0                      ; 0                 ; 0                  ; 0              ; 0               ; 0          ;
+; state.PAD_PULSE        ; 0          ; 0                   ; 0                    ; 0                  ; 0                   ; 0                  ; 0                   ; 0                     ; 0                      ; 0                 ; 0                  ; 0              ; 1               ; 1          ;
+; state.PAD_WAIT         ; 0          ; 0                   ; 0                    ; 0                  ; 0                   ; 0                  ; 0                   ; 0                     ; 0                      ; 0                 ; 0                  ; 1              ; 0               ; 1          ;
+; state.ABSORB_PULSE     ; 0          ; 0                   ; 0                    ; 0                  ; 0                   ; 0                  ; 0                   ; 0                     ; 0                      ; 0                 ; 1                  ; 0              ; 0               ; 1          ;
+; state.ABSORB_WAIT      ; 0          ; 0                   ; 0                    ; 0                  ; 0                   ; 0                  ; 0                   ; 0                     ; 0                      ; 1                 ; 0                  ; 0              ; 0               ; 1          ;
+; state.NEXT_BLOCK_PULSE ; 0          ; 0                   ; 0                    ; 0                  ; 0                   ; 0                  ; 0                   ; 0                     ; 1                      ; 0                 ; 0                  ; 0              ; 0               ; 1          ;
+; state.NEXT_BLOCK_WAIT  ; 0          ; 0                   ; 0                    ; 0                  ; 0                   ; 0                  ; 0                   ; 1                     ; 0                      ; 0                 ; 0                  ; 0              ; 0               ; 1          ;
+; state.SQUEEZE_PULSE    ; 0          ; 0                   ; 0                    ; 0                  ; 0                   ; 0                  ; 1                   ; 0                     ; 0                      ; 0                 ; 0                  ; 0              ; 0               ; 1          ;
+; state.SQUEEZE_WAIT     ; 0          ; 0                   ; 0                    ; 0                  ; 0                   ; 1                  ; 0                   ; 0                     ; 0                      ; 0                 ; 0                  ; 0              ; 0               ; 1          ;
+; state.CONVERT_PULSE    ; 0          ; 0                   ; 0                    ; 0                  ; 1                   ; 0                  ; 0                   ; 0                     ; 0                      ; 0                 ; 0                  ; 0              ; 0               ; 1          ;
+; state.CONVERT_WAIT     ; 0          ; 0                   ; 0                    ; 1                  ; 0                   ; 0                  ; 0                   ; 0                     ; 0                      ; 0                 ; 0                  ; 0              ; 0               ; 1          ;
+; state.TRUNCATE_PULSE   ; 0          ; 0                   ; 1                    ; 0                  ; 0                   ; 0                  ; 0                   ; 0                     ; 0                      ; 0                 ; 0                  ; 0              ; 0               ; 1          ;
+; state.TRUNCATE_WAIT    ; 0          ; 1                   ; 0                    ; 0                  ; 0                   ; 0                  ; 0                   ; 0                     ; 0                      ; 0                 ; 0                  ; 0              ; 0               ; 1          ;
+; state.DONE             ; 1          ; 0                   ; 0                    ; 0                  ; 0                   ; 0                  ; 0                   ; 0                     ; 0                      ; 0                 ; 0                  ; 0              ; 0               ; 1          ;
++------------------------+------------+---------------------+----------------------+--------------------+---------------------+--------------------+---------------------+-----------------------+------------------------+-------------------+--------------------+----------------+-----------------+------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                  ;
++--------------------------------------------------+--------------------------------------------------+
+; Register name                                    ; Reason for Removal                               ;
++--------------------------------------------------+--------------------------------------------------+
+; pad:pad_inst|debug_pad_state[2]                  ; Stuck at GND due to stuck port data_in           ;
+; Absorb:absorb_inst|debug_absorb_i[0..5,7..9]     ; Stuck at GND due to stuck port data_in           ;
+; Absorb:absorb_inst|debug_pre_perm[1088..1599]    ; Stuck at GND due to stuck port data_in           ;
+; Control_Unit:cu|more_blocks                      ; Stuck at GND due to stuck port data_in           ;
+; Control_Unit:cu|block_count[0..3]                ; Lost fanout                                      ;
+; pad:pad_inst|debug_pad_bytecount[1,2,4..6,8..10] ; Merged with pad:pad_inst|debug_pad_bytecount[0]  ;
+; pad:pad_inst|debug_pad_bytecount[7]              ; Merged with pad:pad_inst|debug_pad_bytecount[3]  ;
+; pad:pad_inst|debug_pad_bytecount[0]              ; Stuck at GND due to stuck port data_in           ;
+; Control_Unit:cu|state.NEXT_BLOCK_PULSE           ; Lost fanout                                      ;
+; Convert_Digest:conv_inst|state~4                 ; Lost fanout                                      ;
+; Convert_Digest:conv_inst|state~5                 ; Lost fanout                                      ;
+; Absorb:absorb_inst|state~4                       ; Lost fanout                                      ;
+; Absorb:absorb_inst|state~5                       ; Lost fanout                                      ;
+; pad:pad_inst|state~4                             ; Lost fanout                                      ;
+; pad:pad_inst|state~5                             ; Lost fanout                                      ;
+; pad:pad_inst|state~6                             ; Lost fanout                                      ;
+; Control_Unit:cu|state~4                          ; Lost fanout                                      ;
+; Control_Unit:cu|state~5                          ; Lost fanout                                      ;
+; Control_Unit:cu|state~6                          ; Lost fanout                                      ;
+; Control_Unit:cu|state~7                          ; Lost fanout                                      ;
+; Control_Unit:cu|state.NEXT_BLOCK_WAIT            ; Stuck at GND due to stuck port data_in           ;
+; Absorb:absorb_inst|debug_absorb_i[10]            ; Merged with Absorb:absorb_inst|debug_absorb_i[6] ;
+; Total Number of Removed Registers = 551          ;                                                  ;
++--------------------------------------------------+--------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                               ;
++-----------------------------+---------------------------+-----------------------------------------------------------------+
+; Register name               ; Reason for Removal        ; Registers Removed due to This Register                          ;
++-----------------------------+---------------------------+-----------------------------------------------------------------+
+; Control_Unit:cu|more_blocks ; Stuck at GND              ; Control_Unit:cu|block_count[3], Control_Unit:cu|block_count[2], ;
+;                             ; due to stuck port data_in ; Control_Unit:cu|block_count[1], Control_Unit:cu|block_count[0]  ;
++-----------------------------+---------------------------+-----------------------------------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 14909 ;
+; Number of registers using Synchronous Clear  ; 3383  ;
+; Number of registers using Synchronous Load   ; 1600  ;
+; Number of registers using Asynchronous Clear ; 11953 ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 13783 ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                        ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------+
+; 3:1                ; 1088 bits ; 2176 LEs      ; 1088 LEs             ; 1088 LEs               ; Yes        ; |SHAKE256|Squeeze_mod:squeeze_inst|Squeezed_data[369]             ;
+; 3:1                ; 256 bits  ; 512 LEs       ; 256 LEs              ; 256 LEs                ; Yes        ; |SHAKE256|Truncate:truncate_inst|Y[249]                           ;
+; 6:1                ; 5 bits    ; 20 LEs        ; 5 LEs                ; 15 LEs                 ; Yes        ; |SHAKE256|Absorb:absorb_inst|KeccakF1600:keccak_inst|round_idx[2] ;
+; 6:1                ; 1600 bits ; 6400 LEs      ; 3200 LEs             ; 3200 LEs               ; Yes        ; |SHAKE256|Absorb:absorb_inst|KeccakF1600:keccak_inst|A[7][34]     ;
+; 5:1                ; 512 bits  ; 1536 LEs      ; 512 LEs              ; 1024 LEs               ; Yes        ; |SHAKE256|Absorb:absorb_inst|internal_state[1502]                 ;
+; 5:1                ; 1088 bits ; 3264 LEs      ; 1088 LEs             ; 2176 LEs               ; Yes        ; |SHAKE256|Absorb:absorb_inst|internal_state[1082]                 ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[8][7]                            ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[8][4]                            ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; Yes        ; |SHAKE256|Absorb:absorb_inst|KeccakF1600:keccak_inst|fsm[0]       ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[135][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[135][3]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[134][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[134][2]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[133][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[133][2]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[132][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[132][0]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[131][7]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[131][4]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[130][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[130][0]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[129][7]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[129][3]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[128][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[128][0]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[127][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[127][1]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[126][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[126][0]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[125][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[125][1]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[124][6]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[124][1]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[123][7]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[123][4]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[122][6]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[122][4]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[121][7]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[121][0]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[120][7]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[120][4]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[119][6]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[119][0]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[118][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[118][0]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[117][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[117][3]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[116][7]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[116][3]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[115][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[115][2]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[114][6]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[114][2]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[113][7]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[113][4]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[112][6]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[112][4]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[111][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[111][0]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[110][6]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[110][4]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[109][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[109][2]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[108][6]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[108][3]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[107][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[107][4]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[106][7]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[106][1]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[105][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[105][2]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[104][6]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[104][0]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[103][6]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[103][0]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[102][6]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[102][1]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[101][7]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[101][0]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[100][5]                          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[100][4]                          ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[99][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[99][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[98][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[98][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[97][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[97][1]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[96][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[96][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[95][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[95][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[94][6]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[94][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[93][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[93][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[92][6]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[92][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[91][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[91][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[90][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[90][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[89][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[89][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[88][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[88][2]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[87][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[87][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[86][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[86][2]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[85][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[85][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[84][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[84][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[83][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[83][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[82][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[82][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[81][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[81][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[80][6]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[80][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[79][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[79][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[78][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[78][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[77][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[77][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[76][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[76][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[75][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[75][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[74][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[74][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[73][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[73][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[72][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[72][1]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[71][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[71][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[70][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[70][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[69][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[69][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[68][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[68][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[67][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[67][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[66][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[66][2]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[65][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[65][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[64][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[64][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[63][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[63][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[62][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[62][1]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[61][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[61][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[60][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[60][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[59][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[59][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[58][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[58][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[57][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[57][1]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[56][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[56][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[55][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[55][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[54][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[54][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[53][6]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[53][1]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[52][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[52][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[51][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[51][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[50][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[50][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[49][6]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[49][1]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[48][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[48][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[47][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[47][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[46][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[46][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[45][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[45][1]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[44][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[44][1]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[43][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[43][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[42][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[42][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[41][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[41][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[40][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[40][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[39][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[39][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[38][6]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[38][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[37][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[37][1]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[36][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[36][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[35][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[35][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[34][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[34][1]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[33][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[33][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[32][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[32][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[31][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[31][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[30][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[30][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[29][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[29][1]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[28][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[28][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[27][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[27][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[26][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[26][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[25][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[25][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[24][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[24][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[23][6]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[23][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[22][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[22][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[21][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[21][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[20][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[20][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[19][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[19][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[18][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[18][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[17][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[17][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[16][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[16][1]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[15][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[15][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[14][7]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[14][4]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[13][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[13][3]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[12][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[12][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[11][6]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[11][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[10][5]                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[10][0]                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[9][7]                            ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[9][1]                            ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[7][6]                            ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[7][4]                            ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[6][7]                            ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[6][4]                            ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[5][5]                            ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[5][4]                            ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[4][5]                            ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[4][1]                            ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[3][5]                            ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[3][3]                            ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[2][7]                            ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[2][4]                            ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[1][5]                            ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[1][4]                            ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 2 LEs                ; 4 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[0][6]                            ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |SHAKE256|pad:pad_inst|msg_array[0][3]                            ;
+; 6:1                ; 10 bits   ; 40 LEs        ; 10 LEs               ; 30 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|temp_byte[4]                               ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|data_count[7]                              ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[0][7]                             ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[1][6]                             ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[2][7]                             ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[3][1]                             ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[4][3]                             ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[5][4]                             ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[6][4]                             ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[7][7]                             ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[8][0]                             ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[9][5]                             ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[10][4]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[11][4]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[12][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[13][5]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[14][6]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[15][7]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[16][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[17][6]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[18][3]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[19][5]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[20][5]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[21][5]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[22][6]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[23][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[24][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[25][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[26][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[27][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[28][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[29][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[30][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[31][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[32][4]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[33][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[34][3]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[35][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[36][3]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[37][3]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[38][7]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[39][4]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[40][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[41][4]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[42][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[43][2]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[44][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[45][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[46][7]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[47][1]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[48][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[49][5]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[50][1]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[51][7]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[52][2]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[53][7]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[54][3]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[55][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[56][7]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[57][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[58][2]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[59][7]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[60][5]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[61][2]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[62][1]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[63][6]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[64][6]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[65][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[66][5]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[67][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[68][4]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[69][3]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[70][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[71][7]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[72][3]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[73][5]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[74][7]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[75][1]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[76][6]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[77][2]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[78][5]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[79][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[80][5]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[81][1]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[82][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[83][7]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[84][1]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[85][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[86][6]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[87][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[88][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[89][5]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[90][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[91][7]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[92][7]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[93][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[94][5]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[95][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[96][5]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[97][5]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[98][3]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[99][0]                            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[100][0]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[101][0]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[102][5]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[103][0]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[104][0]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[105][5]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[106][0]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[107][6]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[108][0]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[109][3]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[110][2]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[111][0]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[112][7]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[113][4]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[114][6]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[115][6]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[116][0]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[117][5]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[118][7]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[119][6]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[120][4]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[121][3]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[122][7]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[123][0]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[124][0]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[125][0]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[126][7]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[127][7]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[128][0]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[129][1]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[130][3]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[131][4]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[132][7]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[133][0]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[134][7]                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |SHAKE256|pad:pad_inst|msg_temp[135][1]                           ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |SHAKE256|pad:pad_inst|ShiftLeft0                                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Top-level Entity: |SHAKE256 ;
++----------------+-------+-------------------------------------------------+
+; Parameter Name ; Value ; Type                                            ;
++----------------+-------+-------------------------------------------------+
+; STATE_WIDTH    ; 1600  ; Signed Integer                                  ;
+; RATE_WIDTH     ; 1088  ; Signed Integer                                  ;
+; CAPACITY_WIDTH ; 512   ; Signed Integer                                  ;
+; OUT_BITS       ; 256   ; Signed Integer                                  ;
++----------------+-------+-------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Control_Unit:cu ;
++----------------+-------+-------------------------------------+
+; Parameter Name ; Value ; Type                                ;
++----------------+-------+-------------------------------------+
+; MAX_BLOCKS     ; 10    ; Signed Integer                      ;
++----------------+-------+-------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pad:pad_inst ;
++----------------+-------+----------------------------------+
+; Parameter Name ; Value ; Type                             ;
++----------------+-------+----------------------------------+
+; RANGE          ; 1088  ; Signed Integer                   ;
++----------------+-------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Squeeze_mod:squeeze_inst ;
++----------------+-------+----------------------------------------------+
+; Parameter Name ; Value ; Type                                         ;
++----------------+-------+----------------------------------------------+
+; RATE           ; 1088  ; Signed Integer                               ;
+; OUTPUT_WIDTH   ; 1088  ; Signed Integer                               ;
+; STATE_WIDTH    ; 1600  ; Signed Integer                               ;
++----------------+-------+----------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Convert_Digest:conv_inst ;
++----------------+-------+----------------------------------------------+
+; Parameter Name ; Value ; Type                                         ;
++----------------+-------+----------------------------------------------+
+; WIDTH_IN       ; 1088  ; Signed Integer                               ;
++----------------+-------+----------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Truncate:truncate_inst ;
++----------------+-------+--------------------------------------------+
+; Parameter Name ; Value ; Type                                       ;
++----------------+-------+--------------------------------------------+
+; WIDTH_IN       ; 1088  ; Signed Integer                             ;
+; MAX_L          ; 256   ; Signed Integer                             ;
++----------------+-------+--------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------+
+; Port Connectivity Checks: "Absorb:absorb_inst|KeccakF1600:keccak_inst" ;
++----------------+--------+----------+-----------------------------------+
+; Port           ; Type   ; Severity ; Details                           ;
++----------------+--------+----------+-----------------------------------+
+; debug_kf_fsm   ; Output ; Info     ; Explicitly unconnected            ;
+; debug_kf_round ; Output ; Info     ; Explicitly unconnected            ;
++----------------+--------+----------+-----------------------------------+
+
+
++-----------------------------------------------------+
+; Port Connectivity Checks: "Absorb:absorb_inst"      ;
++-------------------+-------+----------+--------------+
+; Port              ; Type  ; Severity ; Details      ;
++-------------------+-------+----------+--------------+
+; state_in          ; Input ; Info     ; Stuck at GND ;
+; Block[1599..1088] ; Input ; Info     ; Stuck at GND ;
++-------------------+-------+----------+--------------+
+
+
++----------------------------------------------+
+; Port Connectivity Checks: "pad:pad_inst"     ;
++------------+-------+----------+--------------+
+; Port       ; Type  ; Severity ; Details      ;
++------------+-------+----------+--------------+
+; next_block ; Input ; Info     ; Stuck at GND ;
++------------+-------+----------+--------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Control_Unit:cu"                                                                                                                                    ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port        ; Type   ; Severity ; Details                                                                                                                                      ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; block_ready ; Input  ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; next_block  ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                     ;
+; overflow    ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                     ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 6758                        ;
+; cycloneiii_ff         ; 14909                       ;
+;     CLR               ; 1119                        ;
+;     ENA               ; 1344                        ;
+;     ENA CLR           ; 9057                        ;
+;     ENA CLR SCLR      ; 1777                        ;
+;     ENA SCLR          ; 5                           ;
+;     ENA SCLR SLD      ; 1600                        ;
+;     SCLR              ; 1                           ;
+;     plain             ; 6                           ;
+; cycloneiii_lcell_comb ; 10899                       ;
+;     arith             ; 16                          ;
+;         2 data inputs ; 16                          ;
+;     normal            ; 10883                       ;
+;         0 data inputs ; 2                           ;
+;         1 data inputs ; 3                           ;
+;         2 data inputs ; 3180                        ;
+;         3 data inputs ; 1594                        ;
+;         4 data inputs ; 6104                        ;
+;                       ;                             ;
+; Max LUT depth         ; 5.00                        ;
+; Average LUT depth     ; 1.63                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:27     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+    Info: Processing started: Wed Mar 19 06:21:44 2025
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off SHAKE256 -c SHAKE256
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/test/truncate_tb.v
+    Info (12023): Found entity 1: truncate_tb File: D:/Documents/SHAKE256/test/truncate_tb.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/test/tb_shake256_zero_length.v
+    Info (12023): Found entity 1: tb_shake256_zero_length File: D:/Documents/SHAKE256/test/tb_shake256_zero_length.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/test/tb_shake256.v
+    Info (12023): Found entity 1: tb_Shake256 File: D:/Documents/SHAKE256/test/tb_Shake256.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/test/tb_keccak.v
+    Info (12023): Found entity 1: tb_Keccak File: D:/Documents/SHAKE256/test/tb_Keccak.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/test/tb_cshake256.v
+    Info (12023): Found entity 1: tb_cShake256 File: D:/Documents/SHAKE256/test/tb_cShake256.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/test/squeeze_tb.v
+    Info (12023): Found entity 1: squeeze_tb File: D:/Documents/SHAKE256/test/squeeze_tb.v Line: 2
+Warning (10463): Verilog HDL Declaration warning at pad_tb.v(44): "byte" is SystemVerilog-2005 keyword File: D:/Documents/SHAKE256/test/pad_tb.v Line: 44
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/test/pad_tb.v
+    Info (12023): Found entity 1: pad_tb File: D:/Documents/SHAKE256/test/pad_tb.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/test/keccakf1600_tb.v
+    Info (12023): Found entity 1: keccakf1600_tb File: D:/Documents/SHAKE256/test/keccakf1600_tb.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/test/absorb_tb.v
+    Info (12023): Found entity 1: absorb_tb File: D:/Documents/SHAKE256/test/absorb_tb.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/src/truncate.v
+    Info (12023): Found entity 1: Truncate File: D:/Documents/SHAKE256/src/Truncate.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/src/squeeze_mod.v
+    Info (12023): Found entity 1: Squeeze_mod File: D:/Documents/SHAKE256/src/squeeze_mod.v Line: 6
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/src/shake256.v
+    Info (12023): Found entity 1: SHAKE256 File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/src/rotateleft.v
+    Info (12023): Found entity 1: RotateLeft File: D:/Documents/SHAKE256/src/RotateLeft.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/src/pad136.v
+    Info (12023): Found entity 1: pad136 File: D:/Documents/SHAKE256/src/Pad136.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/src/pad.v
+    Info (12023): Found entity 1: pad File: D:/Documents/SHAKE256/src/Pad.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/src/length.v
+    Info (12023): Found entity 1: Length File: D:/Documents/SHAKE256/src/length.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/src/keccakf1600.v
+    Info (12023): Found entity 1: KeccakF1600 File: D:/Documents/SHAKE256/src/KeccakF1600.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/src/keccak.v
+    Info (12023): Found entity 1: KECCAK File: D:/Documents/SHAKE256/src/KECCAK.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/src/cshake256.v
+    Info (12023): Found entity 1: cShake256 File: D:/Documents/SHAKE256/src/cShake256.v Line: 5
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/src/convert_digest.v
+    Info (12023): Found entity 1: Convert_Digest File: D:/Documents/SHAKE256/src/Convert_Digest.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/src/control_unit.v
+    Info (12023): Found entity 1: Control_Unit File: D:/Documents/SHAKE256/src/Control_Unit.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /documents/shake256/src/absorb.v
+    Info (12023): Found entity 1: Absorb File: D:/Documents/SHAKE256/src/Absorb.v Line: 2
+Info (12127): Elaborating entity "SHAKE256" for the top level hierarchy
+Info (12128): Elaborating entity "Control_Unit" for hierarchy "Control_Unit:cu" File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 69
+Warning (10230): Verilog HDL assignment warning at Control_Unit.v(122): truncated value with size 32 to match size of target (4) File: D:/Documents/SHAKE256/src/Control_Unit.v Line: 122
+Info (12128): Elaborating entity "pad" for hierarchy "pad:pad_inst" File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 84
+Warning (10230): Verilog HDL assignment warning at Pad.v(144): truncated value with size 32 to match size of target (8) File: D:/Documents/SHAKE256/src/Pad.v Line: 144
+Warning (10230): Verilog HDL assignment warning at Pad.v(150): truncated value with size 32 to match size of target (2) File: D:/Documents/SHAKE256/src/Pad.v Line: 150
+Warning (10230): Verilog HDL assignment warning at Pad.v(159): truncated value with size 32 to match size of target (8) File: D:/Documents/SHAKE256/src/Pad.v Line: 159
+Warning (10230): Verilog HDL assignment warning at Pad.v(191): truncated value with size 32 to match size of target (11) File: D:/Documents/SHAKE256/src/Pad.v Line: 191
+Info (12128): Elaborating entity "Absorb" for hierarchy "Absorb:absorb_inst" File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 114
+Info (12128): Elaborating entity "KeccakF1600" for hierarchy "Absorb:absorb_inst|KeccakF1600:keccak_inst" File: D:/Documents/SHAKE256/src/Absorb.v Line: 41
+Warning (10230): Verilog HDL assignment warning at KeccakF1600.v(161): truncated value with size 32 to match size of target (5) File: D:/Documents/SHAKE256/src/KeccakF1600.v Line: 161
+Info (12128): Elaborating entity "Squeeze_mod" for hierarchy "Squeeze_mod:squeeze_inst" File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 129
+Info (12128): Elaborating entity "Convert_Digest" for hierarchy "Convert_Digest:conv_inst" File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 142
+Info (10264): Verilog HDL Case Statement information at Convert_Digest.v(69): all case item expressions in this case statement are onehot File: D:/Documents/SHAKE256/src/Convert_Digest.v Line: 69
+Info (12128): Elaborating entity "Truncate" for hierarchy "Truncate:truncate_inst" File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 157
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "debug_pad_state[2]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 19
+    Warning (13410): Pin "debug_pad_bytecount[0]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 20
+    Warning (13410): Pin "debug_pad_bytecount[1]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 20
+    Warning (13410): Pin "debug_pad_bytecount[2]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 20
+    Warning (13410): Pin "debug_pad_bytecount[4]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 20
+    Warning (13410): Pin "debug_pad_bytecount[5]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 20
+    Warning (13410): Pin "debug_pad_bytecount[6]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 20
+    Warning (13410): Pin "debug_pad_bytecount[8]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 20
+    Warning (13410): Pin "debug_pad_bytecount[9]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 20
+    Warning (13410): Pin "debug_pad_bytecount[10]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 20
+    Warning (13410): Pin "debug_absorb_i[0]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 23
+    Warning (13410): Pin "debug_absorb_i[1]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 23
+    Warning (13410): Pin "debug_absorb_i[2]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 23
+    Warning (13410): Pin "debug_absorb_i[3]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 23
+    Warning (13410): Pin "debug_absorb_i[4]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 23
+    Warning (13410): Pin "debug_absorb_i[5]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 23
+    Warning (13410): Pin "debug_absorb_i[7]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 23
+    Warning (13410): Pin "debug_absorb_i[8]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 23
+    Warning (13410): Pin "debug_absorb_i[9]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 23
+    Warning (13410): Pin "debug_pre_perm[1088]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1089]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1090]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1091]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1092]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1093]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1094]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1095]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1096]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1097]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1098]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1099]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1100]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1101]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1102]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1103]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1104]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1105]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1106]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1107]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1108]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1109]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1110]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1111]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1112]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1113]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1114]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1115]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1116]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1117]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1118]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1119]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1120]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1121]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1122]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1123]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1124]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1125]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1126]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1127]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1128]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1129]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1130]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1131]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1132]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1133]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1134]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1135]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1136]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1137]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1138]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1139]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1140]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1141]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1142]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1143]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1144]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1145]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1146]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1147]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1148]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1149]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1150]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1151]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1152]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1153]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1154]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1155]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1156]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1157]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1158]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1159]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1160]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1161]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1162]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1163]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1164]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1165]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1166]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1167]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1168]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1169]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1170]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1171]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1172]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1173]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1174]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1175]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1176]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1177]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1178]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1179]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1180]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1181]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1182]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1183]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1184]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1185]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1186]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1187]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1188]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1189]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1190]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1191]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1192]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1193]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1194]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1195]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1196]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1197]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1198]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1199]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1200]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1201]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1202]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1203]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1204]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1205]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1206]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1207]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1208]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1209]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1210]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1211]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1212]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1213]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1214]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1215]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1216]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1217]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1218]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1219]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1220]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1221]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1222]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1223]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1224]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1225]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1226]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1227]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1228]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1229]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1230]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1231]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1232]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1233]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1234]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1235]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1236]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1237]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1238]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1239]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1240]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1241]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1242]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1243]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1244]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1245]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1246]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1247]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1248]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1249]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1250]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1251]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1252]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1253]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1254]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1255]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1256]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1257]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1258]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1259]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1260]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1261]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1262]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1263]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1264]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1265]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1266]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1267]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1268]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1269]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1270]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1271]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1272]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1273]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1274]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1275]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1276]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1277]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1278]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1279]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1280]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1281]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1282]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1283]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1284]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1285]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1286]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1287]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1288]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1289]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1290]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1291]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1292]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1293]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1294]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1295]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1296]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1297]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1298]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1299]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1300]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1301]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1302]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1303]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1304]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1305]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1306]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1307]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1308]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1309]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1310]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1311]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1312]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1313]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1314]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1315]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1316]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1317]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1318]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1319]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1320]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1321]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1322]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1323]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1324]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1325]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1326]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1327]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1328]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1329]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1330]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1331]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1332]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1333]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1334]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1335]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1336]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1337]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1338]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1339]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1340]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1341]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1342]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1343]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1344]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1345]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1346]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1347]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1348]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1349]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1350]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1351]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1352]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1353]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1354]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1355]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1356]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1357]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1358]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1359]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1360]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1361]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1362]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1363]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1364]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1365]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1366]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1367]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1368]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1369]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1370]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1371]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1372]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1373]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1374]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1375]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1376]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1377]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1378]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1379]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1380]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1381]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1382]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1383]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1384]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1385]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1386]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1387]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1388]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1389]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1390]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1391]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1392]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1393]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1394]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1395]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1396]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1397]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1398]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1399]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1400]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1401]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1402]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1403]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1404]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1405]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1406]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1407]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1408]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1409]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1410]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1411]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1412]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1413]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1414]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1415]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1416]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1417]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1418]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1419]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1420]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1421]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1422]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1423]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1424]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1425]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1426]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1427]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1428]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1429]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1430]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1431]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1432]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1433]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1434]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1435]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1436]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1437]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1438]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1439]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1440]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1441]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1442]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1443]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1444]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1445]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1446]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1447]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1448]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1449]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1450]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1451]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1452]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1453]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1454]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1455]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1456]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1457]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1458]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1459]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1460]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1461]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1462]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1463]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1464]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1465]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1466]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1467]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1468]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1469]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1470]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1471]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1472]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1473]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1474]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1475]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1476]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1477]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1478]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1479]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1480]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1481]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1482]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1483]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1484]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1485]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1486]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1487]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1488]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1489]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1490]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1491]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1492]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1493]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1494]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1495]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1496]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1497]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1498]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1499]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1500]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1501]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1502]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1503]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1504]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1505]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1506]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1507]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1508]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1509]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1510]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1511]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1512]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1513]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1514]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1515]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1516]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1517]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1518]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1519]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1520]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1521]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1522]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1523]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1524]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1525]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1526]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1527]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1528]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1529]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1530]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1531]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1532]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1533]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1534]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1535]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1536]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1537]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1538]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1539]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1540]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1541]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1542]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1543]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1544]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1545]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1546]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1547]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1548]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1549]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1550]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1551]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1552]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1553]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1554]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1555]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1556]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1557]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1558]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1559]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1560]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1561]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1562]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1563]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1564]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1565]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1566]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1567]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1568]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1569]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1570]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1571]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1572]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1573]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1574]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1575]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1576]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1577]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1578]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1579]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1580]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1581]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1582]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1583]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1584]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1585]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1586]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1587]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1588]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1589]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1590]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1591]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1592]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1593]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1594]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1595]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1596]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1597]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1598]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+    Warning (13410): Pin "debug_pre_perm[1599]" is stuck at GND File: D:/Documents/SHAKE256/src/SHAKE256.v Line: 28
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 16 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file D:/Documents/SHAKE256/.gitignore/output_files/SHAKE256.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 24700 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 7 input pins
+    Info (21059): Implemented 6751 output pins
+    Info (21061): Implemented 17942 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 541 warnings
+    Info: Peak virtual memory: 4941 megabytes
+    Info: Processing ended: Wed Mar 19 06:22:32 2025
+    Info: Elapsed time: 00:00:48
+    Info: Total CPU time (on all processors): 00:00:26
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in D:/Documents/SHAKE256/.gitignore/output_files/SHAKE256.map.smsg.
+
+

@@ -1,0 +1,166 @@
+`timescale 1ns/1ps
+module Message_Accumulator #(
+    parameter RATE_BITS = 1088
+)(
+    input  wire              clk,
+    input  wire              reset,
+    
+    // Control signals
+    input  wire              accumulate_start,    // from control: begin collecting next block
+    input  wire              enable_2bit,         // each cycle we read 2 bits
+    input  wire [1:0]        serial_in,           
+    input  wire              serial_end_signal,   // user says no more data in this entire message
+    input  wire              is_final_chunk,      // indicates we are finishing the entire message
+    output reg               block_ready,         // 1 when we have a complete block or final partial
+    output reg [RATE_BITS-1:0] block_data,        // the final 1088-bit block
+    output reg               partial_block        // 1 if it's a partial block (i.e. we ended early)
+);
+
+  // We store up to RATE_BITS in a small memory or a 136-byte array.
+  // For simplicity, let’s store as a reg array [0..(RATE_BITS/8 -1)] of 8 bits each.
+  localparam BYTES_PER_BLOCK = RATE_BITS / 8; // = 136
+  
+  // Because we want small iterative logic, we do:
+  // 1. keep an 8-bit shift reg for partial.
+  // 2. keep a local memory for 136 bytes or a direct 1088-bit reg with single writes.
+
+  reg [7:0]   buffer_mem [0:BYTES_PER_BLOCK-1];
+  reg [10:0]  byte_index;  // which byte are we writing now (0..135)
+  reg [1:0]   chunk_count; // how many 2-bit chunks have we loaded in the current byte?
+  reg [7:0]   temp_byte;   // accum 2 bits at a time
+
+  // Simple FSM
+  localparam [2:0] 
+    ST_IDLE   = 3'd0,
+    ST_COLLECT= 3'd1,
+    ST_ENDING = 3'd2,
+    ST_DONE   = 3'd3;
+
+  reg [2:0] state, next_state;
+  integer i;
+
+  // Output registers
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      block_ready  <= 1'b0;
+      block_data   <= {RATE_BITS{1'b0}};
+      partial_block<= 1'b0;
+    end else if (state == ST_DONE) begin
+      block_ready  <= 1'b1;
+      // Construct the final 1088-bit block from buffer_mem
+      for (i=0; i<BYTES_PER_BLOCK; i=i+1) begin
+        block_data[8*i +: 8] <= buffer_mem[i];
+      end
+      // If we did not fill all 136 bytes, partial_block=1
+      partial_block <= (byte_index < BYTES_PER_BLOCK);
+    end else begin
+      block_ready  <= 1'b0;
+    end
+  end
+
+  // Control the local memory writing
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      state <= ST_IDLE;
+      for (i=0; i<BYTES_PER_BLOCK; i=i+1)
+        buffer_mem[i] <= 8'h00;
+      byte_index <= 0;
+      chunk_count<= 0;
+      temp_byte  <= 8'h00;
+    end else begin
+      state <= next_state;
+
+      case(state)
+        ST_IDLE: begin
+          if (accumulate_start) begin
+            // clear memory
+            for (i=0; i<BYTES_PER_BLOCK; i=i+1)
+              buffer_mem[i] <= 8'h00;
+            byte_index <= 0;
+            chunk_count<= 0;
+            temp_byte  <= 8'h00;
+          end
+        end
+
+        ST_COLLECT: begin
+          // if enable_2bit=1, latch 2 bits
+          if (enable_2bit) begin
+            temp_byte[2*chunk_count +: 2] <= serial_in;
+            chunk_count <= chunk_count + 1'b1;
+
+            if (chunk_count == 2'd3) begin
+              // we have a full byte
+              buffer_mem[byte_index] <= temp_byte;
+              byte_index <= byte_index + 1'b1;
+              temp_byte  <= 8'h00;
+              chunk_count<= 2'd0;
+            end
+          end
+
+          // If we have filled 136 bytes => block is full
+          if (byte_index == BYTES_PER_BLOCK) begin
+            // We have a full block, go to done
+          end
+
+          // If serial_end_signal, go to ST_ENDING
+          // because user said they have no more data in this entire message
+          // but might not be final chunk unless is_final_chunk=1
+        end
+
+        ST_ENDING: begin
+          // if chunk_count !=0, store partial byte
+          if (chunk_count !=0) begin
+            buffer_mem[byte_index] <= temp_byte;
+            byte_index <= byte_index + 1'b1;
+            temp_byte  <= 8'h00;
+            chunk_count<= 0;
+          end
+
+          // Domain separation nibble “0x1F” if is_final_chunk
+          // or “0x06” if standard ??? Let’s do 0x1F for SHAKE
+          if (byte_index < BYTES_PER_BLOCK) begin
+            buffer_mem[byte_index] <= 8'h1F; 
+            byte_index <= byte_index + 1'b1;
+          end
+          // fill up to last byte - 1 with 0
+          integer j;
+          for (j = byte_index; j < (BYTES_PER_BLOCK -1); j=j+1) begin
+            buffer_mem[j] <= 8'h00;
+          end
+          // last byte => 0x80
+          buffer_mem[BYTES_PER_BLOCK-1] <= 8'h80;
+
+        end
+
+        ST_DONE: begin
+          // do nothing; block_ready=1 next
+        end
+
+        default: ;
+      endcase
+    end
+  end
+
+  // next_state logic
+  always @* begin
+    next_state = state;
+    case(state)
+      ST_IDLE: begin
+        if (accumulate_start)
+          next_state = ST_COLLECT;
+      end
+      ST_COLLECT: begin
+        if (byte_index == BYTES_PER_BLOCK) begin
+          // Full block => we do partial domain separation if not final? Up to you.
+          next_state = ST_DONE;
+        end else if (serial_end_signal) begin
+          next_state = ST_ENDING;
+        end
+      end
+      ST_ENDING: next_state = ST_DONE;
+      ST_DONE:   next_state = ST_DONE; // remain until next cycle or control says gather next block
+      default:   next_state = ST_IDLE;
+    endcase
+  end
+
+endmodule

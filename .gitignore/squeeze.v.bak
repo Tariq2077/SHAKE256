@@ -1,0 +1,27 @@
+`timescale 1ns / 1ps
+
+// squeeze.v
+module squeeze(
+    input clk,
+    input opcode,
+    input [1599:0] Unsqueezed_data,
+    output [1087:0] Squeezed_data,
+    output squeeze_done
+);
+
+    wire start; // Internal wire to connect CU and DP
+
+    CU_squeeze CU (
+        .opcode(opcode),
+        .start(start)
+    );
+
+    DP_squeeze DU (
+        .clk(clk),
+        .start(start),
+        .Unsqueezed_data(Unsqueezed_data),
+        .Squeezed_data(Squeezed_data),
+        .squeeze_done(squeeze_done)
+    );
+
+endmodule

@@ -1,0 +1,13 @@
+// CU_squeeze.v
+module CU_squeeze(
+    input opcode,
+    output reg start
+);
+    always @(*) begin
+        case (opcode)
+            1'b1: start = 1'b1;  // Start
+            1'b0: start = 1'b0;  // End
+            default: start = 1'b0;
+        endcase
+    end
+endmodule

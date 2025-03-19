@@ -1,0 +1,46 @@
+`timescale 1ns/1ps
+module Convert_Digest #(
+    parameter INPUT_WIDTH = 1088,
+    parameter OUTPUT_WIDTH = 256  // 256 bits = 32 bytes
+)(
+    input  wire clk,
+    input  wire reset,
+    input  wire convert_start,
+    input  wire [INPUT_WIDTH-1:0] Squeezed_data,
+    output reg [OUTPUT_WIDTH-1:0] Converted_digest,
+    output reg convert_done
+);
+
+    // This module will extract the lower 256 bits of Squeezed_data,
+    // split them into 32 bytes, reverse their order, and reassemble them.
+    integer i;
+    reg [7:0] bytes [0:31];
+    reg [7:0] rev_bytes [0:31];
+
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            Converted_digest <= {OUTPUT_WIDTH{1'b0}};
+            convert_done <= 1'b0;
+        end else if (convert_start) begin
+            // Extract lower 256 bits into 32 bytes.
+            for (i = 0; i < 32; i = i + 1)
+                bytes[i] = Squeezed_data[8*i +: 8];
+            // Reverse the order.
+            for (i = 0; i < 32; i = i + 1)
+                rev_bytes[i] = bytes[31 - i];
+            // Concatenate the reversed bytes.
+            Converted_digest <= { rev_bytes[0],  rev_bytes[1],  rev_bytes[2],  rev_bytes[3],
+                                  rev_bytes[4],  rev_bytes[5],  rev_bytes[6],  rev_bytes[7],
+                                  rev_bytes[8],  rev_bytes[9],  rev_bytes[10], rev_bytes[11],
+                                  rev_bytes[12], rev_bytes[13], rev_bytes[14], rev_bytes[15],
+                                  rev_bytes[16], rev_bytes[17], rev_bytes[18], rev_bytes[19],
+                                  rev_bytes[20], rev_bytes[21], rev_bytes[22], rev_bytes[23],
+                                  rev_bytes[24], rev_bytes[25], rev_bytes[26], rev_bytes[27],
+                                  rev_bytes[28], rev_bytes[29], rev_bytes[30], rev_bytes[31] };
+            convert_done <= 1'b1;
+        end else begin
+            convert_done <= 1'b0;
+        end
+    end
+
+endmodule

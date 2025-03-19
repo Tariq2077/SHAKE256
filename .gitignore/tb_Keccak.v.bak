@@ -1,0 +1,65 @@
+`timescale 1ns/1ps
+
+module tb_Keccak;
+
+    // Testbench signals
+    reg         clk;
+    reg         rst_n;
+    reg         start;
+    reg [1599:0] state_in;
+    wire [1599:0] state_out;
+    wire        done;
+    wire [1:0]  debug_kf_fsm;
+    wire [4:0]  debug_kf_round;
+
+    // Instantiate the KeccakF1600 module (the core permutation)
+    KeccakF1600 uut (
+        .clk(clk),
+        .rst_n(rst_n),
+        .start(start),
+        .state_in(state_in),
+        .state_out(state_out),
+        .done(done),
+        .debug_kf_fsm(debug_kf_fsm),
+        .debug_kf_round(debug_kf_round)
+    );
+
+    // Clock generation (10 ns period)
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk;
+    end
+
+    // Test stimulus
+    initial begin
+        // Initialize signals
+        rst_n = 0;
+        start = 0;
+        state_in = {1600{1'b0}};  // all-zero state
+
+        #20;
+        rst_n = 1;    // release reset
+        #20;
+        
+        // Start the permutation
+        $display("Starting KeccakF1600 permutation on all-zero state...");
+        start = 1;
+        #10;
+        start = 0;
+        
+        // Wait until the permutation is done
+        wait(done == 1);
+        #20;
+        
+        // Display the 25 lanes of the output state (each 64 bits)
+        $display("KeccakF1600 permutation output:");
+        integer i;
+        for (i = 0; i < 25; i = i + 1) begin
+            // Extract lane i: lane0 corresponds to the top 64 bits of state_out
+            $display("Lane[%0d] = %h", i, state_out[1599 - i*64 -: 64]);
+        end
+        
+        $stop;
+    end
+
+endmodule

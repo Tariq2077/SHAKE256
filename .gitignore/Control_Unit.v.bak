@@ -1,0 +1,90 @@
+module Control_Unit(
+    input  wire clk,
+    input  wire reset,
+    input  wire start_ext,  // External start signal
+    // Done signals from modules
+    input  wire pad_done,
+    input  wire absorb_done,
+    input  wire permute_done,
+    input  wire squeeze_done,
+    input  wire truncate_done,
+    // Control outputs for modules
+    output reg  pad_start,
+    output reg  absorb_start,
+    output reg  permute_start,
+    output reg  squeeze_start,
+    output reg  truncate_start,
+    output reg  encryption_done
+);
+    // Define the overall FSM states
+    localparam IDLE       = 4'd0,
+               INIT       = 4'd1,
+               PAD        = 4'd2,
+               ABSORB     = 4'd3,
+               PERMUTE    = 4'd4,
+               SQUEEZE    = 4'd5,
+               TRUNCATE   = 4'd6,
+               DONE       = 4'd7;
+    reg [3:0] state, next_state;
+    
+    // FSM combinational logic:
+    always @(*) begin
+        // Default outputs:
+        pad_start = 1'b0;
+        absorb_start = 1'b0;
+        permute_start = 1'b0;
+        squeeze_start = 1'b0;
+        truncate_start = 1'b0;
+        encryption_done = 1'b0;
+        next_state = state;
+        
+        case (state)
+            IDLE: begin
+                if (start_ext)
+                    next_state = INIT;
+            end
+            INIT: begin
+                // Initialize internal registers if necessary
+                next_state = PAD;
+            end
+            PAD: begin
+                pad_start = 1'b1;
+                if (pad_done)
+                    next_state = ABSORB;
+            end
+            ABSORB: begin
+                absorb_start = 1'b1;
+                if (absorb_done)
+                    next_state = PERMUTE;
+            end
+            PERMUTE: begin
+                permute_start = 1'b1;
+                if (permute_done)
+                    next_state = SQUEEZE;
+            end
+            SQUEEZE: begin
+                squeeze_start = 1'b1;
+                if (squeeze_done)
+                    next_state = TRUNCATE;
+            end
+            TRUNCATE: begin
+                truncate_start = 1'b1;
+                if (truncate_done)
+                    next_state = DONE;
+            end
+            DONE: begin
+                encryption_done = 1'b1;
+                // Optionally, return to IDLE or wait for a reset.
+            end
+            default: next_state = IDLE;
+        endcase
+    end
+    
+    // FSM sequential logic:
+    always @(posedge clk or posedge reset) begin
+        if (reset)
+            state <= IDLE;
+        else
+            state <= next_state;
+    end
+endmodule

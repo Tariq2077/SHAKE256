@@ -1,0 +1,101 @@
+`timescale 1ns/1ps
+module pad_forced #
+(
+    // 1088 bits = 136 bytes
+    parameter RANGE = 1088
+)
+(
+    input  wire             clk,
+    input  wire             reset,
+    input  wire             pad_start,   // 1-cycle pulse
+    input  wire             next_block,  // (unused)
+    input  wire             enable,      // ignored
+    input  wire [1:0]       serial_in,   // ignored
+    input  wire             serial_end_signal, // ignored
+
+    // Outputs:
+    output wire [RANGE-1:0] message, // Flattened final
+    output reg              pad_done,
+
+    // Debug
+    output reg [2:0]        debug_pad_state,
+    output reg [10:0]       debug_pad_bytecount
+);
+
+    localparam BYTE_RANGE = RANGE/8; // 136
+
+    reg [7:0] msg_array [0:BYTE_RANGE-1];
+
+    // Flatten
+    genvar i;
+    generate
+        for (i=0; i<BYTE_RANGE; i=i+1) begin: FLATTEN
+            assign message[i*8 +: 8] = msg_array[i];
+        end
+    endgenerate
+
+    // FSM states
+    localparam [1:0] STATE_IDLE = 2'd0,
+                     STATE_DONE = 2'd1;
+
+    reg [1:0] state, next_state;
+    integer j;
+
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            state <= STATE_IDLE;
+            pad_done <= 1'b0;
+            debug_pad_bytecount <= 0;
+            for (j=0; j<BYTE_RANGE; j=j+1)
+                msg_array[j] <= 8'h00;
+        end else begin
+            state <= next_state;
+            case (state)
+            STATE_IDLE: begin
+                // Once we see pad_start, build the forced layout
+                pad_done <= 1'b0;
+                if (pad_start) begin
+                    // 1) Clear
+                    for (j=0; j<BYTE_RANGE; j=j+1)
+                        msg_array[j] <= 8'h00;
+
+                    // 2) Overwrite:
+                    msg_array[0]   <= 8'h80;
+                    msg_array[132] <= 8'h1F;
+                    msg_array[133] <= 8'h63; // 'c'
+                    msg_array[134] <= 8'h62; // 'b'
+                    msg_array[135] <= 8'h61; // 'a'
+
+                    debug_pad_bytecount <= BYTE_RANGE;
+                end
+            end
+
+            STATE_DONE: begin
+                pad_done <= 1'b1;
+                // Print only once
+                if (!pad_done) begin
+                    $display("[PAD_FORCED] Final padded message = %h", message);
+                end
+            end
+            endcase
+        end
+    end
+
+    always @(*) begin
+        next_state = state;
+        case (state)
+        STATE_IDLE: begin
+            // If we saw pad_start, go immediately to DONE next cycle
+            if (pad_start)
+                next_state = STATE_DONE;
+        end
+        STATE_DONE: begin
+            next_state = STATE_DONE;
+        end
+        endcase
+    end
+
+    always @(posedge clk) begin
+        debug_pad_state <= state;
+    end
+endmodule

@@ -1,0 +1,16 @@
+Analysis & Synthesis Status : Successful - Wed Mar 19 06:22:31 2025
+Quartus Prime Version : 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+Revision Name : SHAKE256
+Top-level Entity Name : SHAKE256
+Family : MAX 10
+Total logic elements : 17,941
+    Total combinational functions : 10,897
+    Dedicated logic registers : 14,909
+Total registers : 14909
+Total pins : 6,758
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0
+UFM blocks : 0
+ADC blocks : 0

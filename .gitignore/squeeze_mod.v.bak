@@ -1,0 +1,23 @@
+`timescale 1ns/1ps
+module squeeze_mod #(
+    parameter RATE         = 1088,
+    parameter OUTPUT_WIDTH = 512,    // Set desired output width here (256 or 512)
+    parameter STATE_WIDTH  = 1600
+)(
+    input  wire                   clk,
+    input  wire                   start,         // start squeezing
+    input  wire [STATE_WIDTH-1:0] Unsqueezed_data, // Keccak state after permutation
+    output reg  [OUTPUT_WIDTH-1:0] Squeezed_data,  // Output bits from the state
+    output reg                    squeeze_done   // High when extraction is complete
+);
+    // For this simple implementation, we assume the state already has the bits
+    // in the correct order. If you need to adjust ordering, you could add extra logic.
+    always @(posedge clk) begin
+        if (start) begin
+            Squeezed_data <= Unsqueezed_data[OUTPUT_WIDTH-1:0];
+            squeeze_done  <= 1'b1;
+        end else begin
+            squeeze_done  <= 1'b0;
+        end
+    end
+endmodule

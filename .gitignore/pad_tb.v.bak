@@ -1,0 +1,84 @@
+`timescale 1ns / 1ps
+
+module pad_tb;
+
+    reg clk;
+    reg reset;
+    reg enable;
+    reg serial_in;
+    reg serial_end_signal;
+    wire [15:0] message;
+    wire valid_output;
+    wire error_flag;
+
+    // Instantiate the pad module
+    pad uut (
+        .clk(clk),
+        .reset(reset),
+        .enable(enable),
+        .serial_in(serial_in),
+        .serial_end_signal(serial_end_signal),
+        .message(message),
+        .valid_output(valid_output),
+        .error_flag(error_flag)
+    );
+
+    // Clock generation
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk; // 100MHz clock with 10ns period
+    end
+
+    // Test data: 8-bit input '10001000'
+    reg [16:0] test_data = 17'b10100100110001000;
+    integer i;
+
+    // Test procedure
+    initial begin
+        // Initialize inputs
+        reset              = 1;
+        enable             = 0;
+        serial_in          = 0;
+        serial_end_signal  = 0;
+
+        // Wait for a few clock cycles
+        #20;
+        reset = 0;
+        enable = 1;
+
+        // Serially input the test data from LSB to MSB
+        for (i = 0; i < 17; i = i + 1) begin
+            serial_in = test_data[i];
+            #10; // Wait for one clock cycle
+        end
+
+        // Assert serial_end_signal after last bit
+        serial_end_signal = 1;
+        #10;
+        serial_end_signal = 0;
+
+        // Wait for the module to process the data
+        #100;
+
+        // Check the outputs
+        if (valid_output) begin
+            $display("Test Passed.");
+            $display("Message bits (LSB to MSB):");
+            for (i = 0; i < 15; i = i + 1) begin
+                $write("%b", message[i]);
+            end
+            $display("");
+            // Display the last bit
+            $display("Last bit (message[1087]): %b", message[16]);
+        end else if (error_flag) begin
+            $display("Error: Input data exceeded maximum allowed length.");
+        end else begin
+            $display("Test Failed: Output not valid.");
+        end
+
+        // Finish simulation
+        #10;
+        $finish;
+    end
+
+endmodule

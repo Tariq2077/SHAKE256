@@ -1,0 +1,210 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/Documents/SHAKE256/.gitignore/simulation/modelsim
+vAbsorb
+Z1 !s110 1742354578
+!i10b 1
+!s100 QT6[QL2>0^82fARRS3a9b2
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I8X8?gRz;i]^2X>7IbGP_f0
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1742234496
+8D:/Documents/SHAKE256/src/Absorb.v
+FD:/Documents/SHAKE256/src/Absorb.v
+!i122 7
+L0 2 115
+Z4 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z5 !s108 1742354578.000000
+!s107 D:/Documents/SHAKE256/src/Absorb.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Documents/SHAKE256/src|D:/Documents/SHAKE256/src/Absorb.v|
+!i113 1
+Z6 o-vlog01compat -work work
+Z7 !s92 -vlog01compat -work work +incdir+D:/Documents/SHAKE256/src
+Z8 tCvgOpt 0
+n@absorb
+vControl_Unit
+R1
+!i10b 1
+!s100 Ida028G<RH2b1gIFaT6g:1
+R2
+IE7o`googG84_C<jg6ja_T2
+R3
+R0
+w1741868856
+8D:/Documents/SHAKE256/src/Control_Unit.v
+FD:/Documents/SHAKE256/src/Control_Unit.v
+!i122 6
+L0 2 191
+R4
+r1
+!s85 0
+31
+R5
+!s107 D:/Documents/SHAKE256/src/Control_Unit.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Documents/SHAKE256/src|D:/Documents/SHAKE256/src/Control_Unit.v|
+!i113 1
+R6
+R7
+R8
+n@control_@unit
+vConvert_Digest
+R1
+!i10b 1
+!s100 0:HRSXk`G3?GZ5U=`n@5m2
+R2
+I3ZjkMUj[WP3T7ai0]NT:U0
+R3
+R0
+w1742234497
+8D:/Documents/SHAKE256/src/Convert_Digest.v
+FD:/Documents/SHAKE256/src/Convert_Digest.v
+!i122 5
+L0 2 105
+R4
+r1
+!s85 0
+31
+R5
+!s107 D:/Documents/SHAKE256/src/Convert_Digest.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Documents/SHAKE256/src|D:/Documents/SHAKE256/src/Convert_Digest.v|
+!i113 1
+R6
+R7
+R8
+n@convert_@digest
+vKeccakF1600
+R1
+!i10b 1
+!s100 @6QV_SiI8Bk3jbXh1Ac@Y1
+R2
+I:02oNF9^IQDiBfEY:G`4f0
+R3
+R0
+w1741414059
+8D:/Documents/SHAKE256/src/KeccakF1600.v
+FD:/Documents/SHAKE256/src/KeccakF1600.v
+!i122 4
+L0 2 185
+R4
+r1
+!s85 0
+31
+R5
+!s107 D:/Documents/SHAKE256/src/KeccakF1600.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Documents/SHAKE256/src|D:/Documents/SHAKE256/src/KeccakF1600.v|
+!i113 1
+R6
+R7
+R8
+n@keccak@f1600
+vpad
+Z9 !s110 1742354577
+!i10b 1
+!s100 JnXl7Ikl7]0mWP7VPm[RK3
+R2
+IaS0=NLNzDBWU_SoX5@QiM3
+R3
+R0
+w1742238777
+8D:/Documents/SHAKE256/src/Pad.v
+FD:/Documents/SHAKE256/src/Pad.v
+!i122 3
+L0 2 211
+R4
+r1
+!s85 0
+31
+Z10 !s108 1742354577.000000
+!s107 D:/Documents/SHAKE256/src/Pad.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Documents/SHAKE256/src|D:/Documents/SHAKE256/src/Pad.v|
+!i113 1
+R6
+R7
+R8
+vSHAKE256
+R9
+!i10b 1
+!s100 jN<7JghQjgkIC^WnVWidT0
+R2
+I:zUb@IoHjjknSgMR7S[f@3
+R3
+R0
+w1742236958
+8D:/Documents/SHAKE256/src/SHAKE256.v
+FD:/Documents/SHAKE256/src/SHAKE256.v
+!i122 2
+L0 2 162
+R4
+r1
+!s85 0
+31
+R10
+!s107 D:/Documents/SHAKE256/src/SHAKE256.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Documents/SHAKE256/src|D:/Documents/SHAKE256/src/SHAKE256.v|
+!i113 1
+R6
+R7
+R8
+n@s@h@a@k@e256
+vSqueeze_mod
+R9
+!i10b 1
+!s100 eEgzV2l49b=o:1bFCC>mo1
+R2
+IVWAFHSfo3:N7Y^=T;7<0g0
+R3
+R0
+w1742234491
+8D:/Documents/SHAKE256/src/squeeze_mod.v
+FD:/Documents/SHAKE256/src/squeeze_mod.v
+!i122 1
+L0 6 27
+R4
+r1
+!s85 0
+31
+R10
+!s107 D:/Documents/SHAKE256/src/squeeze_mod.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Documents/SHAKE256/src|D:/Documents/SHAKE256/src/squeeze_mod.v|
+!i113 1
+R6
+R7
+R8
+n@squeeze_mod
+vTruncate
+R9
+!i10b 1
+!s100 bD?Oa7Loz1S5lPf>kKl3L2
+R2
+IBZ5SFgHiMc:@i2e9Y3Y3J2
+R3
+R0
+w1741493399
+8D:/Documents/SHAKE256/src/Truncate.v
+FD:/Documents/SHAKE256/src/Truncate.v
+!i122 0
+L0 2 31
+R4
+r1
+!s85 0
+31
+R10
+!s107 D:/Documents/SHAKE256/src/Truncate.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Documents/SHAKE256/src|D:/Documents/SHAKE256/src/Truncate.v|
+!i113 1
+R6
+R7
+R8
+n@truncate
