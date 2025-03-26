@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 module Control_Unit #(
-    // Maximum number of blocks to process.
+    // Maximum number of blocks to process we can adjust it based on our hardware power.
     parameter MAX_BLOCKS = 10  
 )(
     input  wire clk,

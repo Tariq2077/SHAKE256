@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 module squeeze_tb;
 
-  // Parameters (should match those in your Squeeze_mod module)
+  // Parameters 
   localparam RATE = 1088;
   localparam OUTPUT_WIDTH = RATE;  // Typically 1088 bits
   localparam STATE_WIDTH = 1600;

@@ -1,7 +1,6 @@
 `timescale 1ns/1ps
 module tb_Keccak;
 
-  // Parameters (must match those used in your KECCAK module)
   localparam STATE_WIDTH    = 1600;
   localparam RATE_WIDTH     = 1088;
   localparam CAPACITY_WIDTH = 512;

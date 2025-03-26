@@ -13,7 +13,7 @@ module tb_shake256_zero_length;
   reg  serial_end_signal;
   wire [511:0] digest;
   
-  // Instantiate your top-level (rename as needed):
+  
   SHAKE256 dut (
       .clk(clk),
       .reset(reset),

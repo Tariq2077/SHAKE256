@@ -10,7 +10,7 @@ module keccakf1600_tb;
   wire [2:0]   debug_kf_fsm;
   wire [4:0]   debug_kf_round;
 
-  // Instantiate the final "KeccakF1600" module
+  // Instantiate KeccakF1600 module
   KeccakF1600 dut (
       .clk(clk),
       .reset(reset),

@@ -24,7 +24,7 @@ module SHAKE256 #(
   output wire [STATE_WIDTH-1:0] debug_absorb_state_full,
   output wire [RATE_WIDTH-1:0] debug_squeeze_data,
   output wire [RATE_WIDTH-1:0] debug_converted_data,
-  output wire [STATE_WIDTH-1:0] debug_pre_perm  // new debug signal from Absorb
+  output wire [STATE_WIDTH-1:0] debug_pre_perm  // Absorb debug signal
 );
 
   // Internal control signals from Control Unit.
@@ -49,7 +49,7 @@ module SHAKE256 #(
   wire [RATE_WIDTH-1:0] converted_digest;
   wire [OUT_BITS-1:0] truncated_out;
   
-  // Instantiate the Control Unit (one-shot, single block operation)
+  // Instantiate the Control Unit 
   Control_Unit cu (
     .clk(clk),
     .reset(reset),
@@ -68,7 +68,7 @@ module SHAKE256 #(
     .debug_ctrl_state(debug_ctrl_state)
   );
   
-  // Instantiate the updated Pad module.
+  
 pad #(.RANGE(1088)) pad_inst (
   .clk(clk),
   .reset(reset),
@@ -130,7 +130,7 @@ pad #(.RANGE(1088)) pad_inst (
   assign debug_squeeze_data = squeeze_out;
   
    Convert_Digest #(
-    .WIDTH_IN(RATE_WIDTH)  // Assuming the squeeze outputs RATE_WIDTH bits.
+    .WIDTH_IN(RATE_WIDTH)  
     
   ) conv_inst (
     .clk(clk),
@@ -159,5 +159,8 @@ pad #(.RANGE(1088)) pad_inst (
   // Final outputs.
   assign digest = truncated_out;
   assign done   = encryption_done;
+  //always @(posedge clk) begin
+  //$display("done is:", done, "       Trncate done is:", truncate_done, "      Convert done is:", convert_done, "     Squeeze done is:", squeeze_done, "    absorb done is:", absorb_done, "      pad done is:", pad_done);
+  //end
 
 endmodule

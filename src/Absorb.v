@@ -61,7 +61,7 @@ module Absorb(
             internal_state <= state_in ^ Block;
             // Capture the pre-permutation value for debugging.
             debug_pre_perm <= state_in ^ Block;
-            debug_absorb_i <= 11'd1088;  // Example debug value.
+            debug_absorb_i <= 11'd1088;  //  debug value.
           end
         end
         
